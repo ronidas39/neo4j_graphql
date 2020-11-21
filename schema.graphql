@@ -1,0 +1,16 @@
+type Student{
+    NAME:String!
+    school:String
+    id:ID!
+    sub1:Int
+    sub2:Int
+    total:Int @cypher(statement:"""
+    match(this) return(this.sub1+this.sub2)
+    """)
+    goes:School @relation(direction:OUT,name:"study_at")
+}
+type School{
+    name:String!
+    id:String
+    has:[Student] @relation(direction:IN,name:"study_at")
+}
